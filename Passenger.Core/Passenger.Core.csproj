@@ -5,3 +5,11 @@
   </PropertyGroup>
 
 </Project>
+
+<!-- 
+W corze nie implementuje się niczego 
+Robi się w nim tylko modele i byty abstrakcyjne
+
+Api wywoluje serwisy, nie widzi repozytoriow oraz nie widzi w ogole projekto Passenger.Core
+
+-->
