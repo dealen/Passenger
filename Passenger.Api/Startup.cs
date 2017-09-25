@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Passenger.Core.Repositories;
+using Passenger.Infrastructure.Repositories;
+using Passenger.Infrastructure.Services;
 
 namespace Passenger.Api
 {
@@ -23,6 +26,9 @@ namespace Passenger.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, InMemoryUserRepository>();
+
             services.AddMvc();
         }
 
