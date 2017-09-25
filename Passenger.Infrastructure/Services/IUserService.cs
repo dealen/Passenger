@@ -4,7 +4,7 @@ namespace Passenger.Infrastructure.Services
 {
     public interface IUserService
     {
-        UserDto GetDto(string email);
-        void Register(string email, string password, string username);
+        UserDto Get(string email);
+        void Register(string email, string password, string role, string username);
     }
 }

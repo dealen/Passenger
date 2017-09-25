@@ -8,7 +8,13 @@ namespace Passenger.Infrastructure.Repositories
 {
     public class InMemoryUserRepository : IUserRepository
     {
-        private static ISet<User> _users = new HashSet<User>();
+        // private static ISet<User> _users = new HashSet<User>();
+        private static ISet<User> _users = new HashSet<User>()
+        {
+            new User(Guid.NewGuid(), "test@email.com", "user1", "user", "secret", "salt"),
+            new User(Guid.NewGuid(),"test1@email.com", "user2", "user", "secret", "salt"),
+            new User(Guid.NewGuid(),"admin@email.com", "admin1", "admin", "secret", "salt")
+        };
 
         public User Get(Guid id)
             => _users.Single(x => x.Id == id);

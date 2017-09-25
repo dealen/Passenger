@@ -13,7 +13,7 @@ namespace Passenger.Infrastructure.Services
             _userRepository = userRepository;
         }
 
-        public UserDto GetDto(string email)
+        public UserDto Get(string email)
         {
             var user = _userRepository.Get(email);
 
@@ -25,14 +25,14 @@ namespace Passenger.Infrastructure.Services
             };
         }
 
-        public void Register(string email, string password, string username)
+        public void Register(string email, string password, string role, string username)
         {
             var user = _userRepository.Get(email);
             if (user != null)
                 throw new Exception($"User with email {email} already exists");
             
             var salt = Guid.NewGuid().ToString("N");
-            user = new User(email, username, password, salt);
+            user = new User(Guid.NewGuid(), email, username, role, password, salt);
             _userRepository.Add(user);
         }
     }
