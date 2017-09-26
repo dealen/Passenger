@@ -1,7 +1,7 @@
 
 namespace Passenger.Infrastructure.Commands.Users
 {
-    public class CreateUser : Passenger.Infrastructure.Commands.ICommand
+    public class CreateUser : ICommand
     {
         public string Email { get; set; }
         public string Password { get; set; }

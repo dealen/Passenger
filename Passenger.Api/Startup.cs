@@ -41,8 +41,8 @@ namespace Passenger.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }            
-
+            }
+            
             app.UseMvc();
         }
     }
