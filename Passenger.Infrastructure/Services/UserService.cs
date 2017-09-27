@@ -22,12 +22,13 @@ namespace Passenger.Infrastructure.Services
         {
             var user = await _userRepository.GetAsync(email);
 
-            return new UserDto{
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                FullName = user.FullName
-            };
+            return _mapper.Map<User, UserDto>(user);
+            // return new UserDto{
+            //     Id = user.Id,
+            //     Username = user.Username,
+            //     Email = user.Email,
+            //     FullName = user.FullName
+            // };
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
