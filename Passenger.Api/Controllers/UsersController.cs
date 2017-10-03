@@ -11,14 +11,13 @@ using Passenger.Infrastructure.Services;
 namespace Passenger.Api.Controllers
 {
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : ApiControllerBase
     {
-        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IUserService _userService;
-        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher)
+
+        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
-            _commandDispatcher = commandDispatcher;
         }
 
         // GET /users/5

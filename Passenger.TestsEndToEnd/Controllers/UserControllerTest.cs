@@ -13,24 +13,14 @@ using Xunit;
 
 namespace Passenger.TestsEndToEnd.Controllers
 {
-    public class UserControllerTest
-    {
-        private readonly TestServer _server;
-        private readonly HttpClient _client;
-
-        public UserControllerTest()
-        {
-            _server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
-            _client = _server.CreateClient();
-        }
-        
+    public class UserControllerTest : ControllerTestsBase
+    {        
         [Fact]
         public async Task given_valid_email_user_should_exist()
         {
             // Act
             var email = "test1@email.com";
-            var response = await _client.GetAsync($"users/{email}");
+            var response = await Client.GetAsync($"users/{email}");
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
@@ -46,7 +36,7 @@ namespace Passenger.TestsEndToEnd.Controllers
         {
             // Act
             var email = "test11111@email.com";
-            var response = await _client.GetAsync($"users/{email}");
+            var response = await Client.GetAsync($"users/{email}");
             
             // Assert
             response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.NotFound);
@@ -61,7 +51,7 @@ namespace Passenger.TestsEndToEnd.Controllers
             };
             var payload = GetPayload(request);
 
-            var response = await _client.PostAsync($"users", payload);
+            var response = await Client.PostAsync($"users", payload);
             
             // Assert
             response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.Created);
@@ -71,15 +61,9 @@ namespace Passenger.TestsEndToEnd.Controllers
         private async Task<UserDto> GetUserAsync(string email)
         {
 
-            var response = await _client.GetAsync($"users/{email}");
+            var response = await Client.GetAsync($"users/{email}");
             var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<UserDto>(responseString);
-        }
-
-        private static StringContent GetPayload(object data)
-        {
-            var json = JsonConvert.SerializeObject(data);
-            return new StringContent(json, Encoding.UTF8, "application/json");
         }
     }
 }
